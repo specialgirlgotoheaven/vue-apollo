@@ -722,11 +722,11 @@ function (_SmartApollo) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SmartQuery).call(this, vm, key, options, false));
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "type", 'query');
+    _defineProperty(_assertThisInitialized(_this), "type", 'query');
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "vueApolloSpecialKeys", VUE_APOLLO_QUERY_KEYWORDS);
+    _defineProperty(_assertThisInitialized(_this), "vueApolloSpecialKeys", VUE_APOLLO_QUERY_KEYWORDS);
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "_loading", false);
+    _defineProperty(_assertThisInitialized(_this), "_loading", false);
 
     _this.firstRun = new Promise(function (resolve, reject) {
       _this._firstRunResolve = resolve;
@@ -1093,9 +1093,9 @@ function (_SmartApollo) {
 
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(SmartSubscription)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "type", 'subscription');
+    _defineProperty(_assertThisInitialized(_this), "type", 'subscription');
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "vueApolloSpecialKeys", ['variables', 'result', 'error', 'throttle', 'debounce', 'linkedQuery']);
+    _defineProperty(_assertThisInitialized(_this), "vueApolloSpecialKeys", ['variables', 'result', 'error', 'throttle', 'debounce', 'linkedQuery']);
 
     return _this;
   }
@@ -1786,7 +1786,7 @@ function initProvider() {
     // Temporary retro-compatibility
     var provided = typeof options.provide === 'function' ? options.provide.call(this) : options.provide;
 
-    if (provided.$apolloProvider) {
+    if (provided && provided.$apolloProvider) {
       this.$apolloProvider = provided.$apolloProvider;
     }
   }
@@ -1867,7 +1867,7 @@ function launch() {
         var options = apollo[key];
         var smart = this.$apollo.addSmartQuery(key, options);
 
-        if (options.prefetch !== false && apollo.$prefetch !== false) {
+        if (options.prefetch !== false && apollo.$prefetch !== false && !smart.skip) {
           this.$_apolloPromises.push(smart.firstRun);
         }
       }
